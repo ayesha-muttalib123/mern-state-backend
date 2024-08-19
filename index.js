@@ -9,6 +9,9 @@ const cookieParser = require('cookie-parser');
 const listing = require('./routes/listingRoute');
 const path = require('path');
 require('dotenv').config();
+app.use(cors({
+    origin:[]
+}))
 
 mongoose.connect(process.env.MONGO_URI).then(() => {
     console.log('Connected to database');
@@ -17,7 +20,15 @@ mongoose.connect(process.env.MONGO_URI).then(() => {
 });
 
 app.use(cors({
-    origin: '*',
+    origin: ['https://mern-state-client.vercel.app/'],
+    methods:[
+        'GET',
+        'POST',
+        'PUT',
+        'DELETE',
+    ],
+    credentials: true
+
 }));
 app.use(cookieParser());
 app.use(express.json());
